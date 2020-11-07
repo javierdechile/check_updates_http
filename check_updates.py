@@ -1,3 +1,4 @@
+import sys
 import requests
 import datetime
 import time
@@ -27,7 +28,7 @@ def check_updates(url, frequency=60):
 
 	prev_check = None
 
-	while True:
+	while url:
 		response = requests.head(url)
 		
 		if response.status_code==200:
@@ -58,6 +59,6 @@ def check_updates(url, frequency=60):
 
 
 if __name__ == '__main__':
-
-	url = "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/678x678.jpg"
-	check_updates(url)
+	# First argument must be a file url, i.e:
+	# python check_updates.py "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/678x678.jpg"
+	check_updates(*sys.argv[1:])
